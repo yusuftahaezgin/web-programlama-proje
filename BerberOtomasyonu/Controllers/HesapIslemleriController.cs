@@ -4,6 +4,7 @@ using BerberOtomasyonu.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace BerberOtomasyonu.Controllers
@@ -36,7 +37,7 @@ namespace BerberOtomasyonu.Controllers
         {
             if(ModelState.IsValid)  
             {
-                var kullanici = _veri.Musteriler.FirstOrDefault(x => x.Email == model.Email && x.Sifre == model.Sifre);
+                var kullanici = await _veri.Musteriler.FirstOrDefaultAsync(x => x.Email == model.Email && x.Sifre == model.Sifre);
 
                 if(kullanici != null)
                 {
@@ -49,7 +50,11 @@ namespace BerberOtomasyonu.Controllers
                     if(kullanici.Email == "g221210008@sakarya.edu.tr")
                     {
                         kullaniciBilgileri.Add(new Claim(ClaimTypes.Role, "admin"));
-                    } 
+                    }
+                    else
+                    {
+                        kullaniciBilgileri.Add(new Claim(ClaimTypes.Role, "user"));
+                    }
 
                     var claimsIdentity = new ClaimsIdentity(kullaniciBilgileri, CookieAuthenticationDefaults.AuthenticationScheme);
 

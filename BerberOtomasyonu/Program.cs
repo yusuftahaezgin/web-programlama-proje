@@ -12,10 +12,20 @@ builder.Services.AddDbContext<Veriler>(options=>{
     var connectionString = config.GetConnectionString("database");
     options.UseSqlite(connectionString);
 });
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();//authentication
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/HesapIslemleri/Login"; // kullanici giris yapmazsa yonlenecegi sayfa
+        options.AccessDeniedPath = "/Home/ErisimHatasi"; // kullanici rolu eksikse yonlenecegi sayfa
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 VeriDoldur.TestVerileriniDoldur(app);
+
 
 app.UseRouting(); //authentication
 app.UseAuthentication();//authentication

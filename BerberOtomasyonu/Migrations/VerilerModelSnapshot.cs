@@ -28,7 +28,7 @@ namespace BerberOtomasyonu.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Eposta")
+                    b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("KullaniciAdi")
@@ -62,7 +62,7 @@ namespace BerberOtomasyonu.Migrations
                     b.Property<string>("CalismaSaatleri")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Eposta")
+                    b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefon")
@@ -114,10 +114,19 @@ namespace BerberOtomasyonu.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Eposta")
+                    b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("KayitTarihi")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("KullaniciAdi")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Sifre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefon")

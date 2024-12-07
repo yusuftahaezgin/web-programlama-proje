@@ -6,7 +6,9 @@ namespace BerberOtomasyonu.Entity
     {
         [Key]
         public int MusteriID { get; set; }
-
+        [Required]
+        [MaxLength(20)]
+        public string KullaniciAdi { get; set; } =null!;
         [Required]
         [MaxLength(100)]
         public string AdSoyad { get; set; } =null!;
@@ -15,7 +17,9 @@ namespace BerberOtomasyonu.Entity
         public string? Telefon { get; set; }
 
         [EmailAddress]
-        public string? Eposta { get; set; }
+        public string? Email { get; set; }
+        [Required]
+        public string Sifre { get; set; }=null!;
 
         public DateTime KayitTarihi { get; set; } = DateTime.Now;
     }

@@ -11,7 +11,6 @@ namespace BerberOtomasyonu.Entity
         [Required]
         [MaxLength(100)]
         public string HizmetAdi { get; set; }=null!;
-
         public string? Aciklama { get; set; }
 
         [Required]

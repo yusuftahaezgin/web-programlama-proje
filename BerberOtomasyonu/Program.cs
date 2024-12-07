@@ -1,4 +1,5 @@
 using BerberOtomasyonu.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,22 +12,18 @@ builder.Services.AddDbContext<Veriler>(options=>{
     var connectionString = config.GetConnectionString("database");
     options.UseSqlite(connectionString);
 });
-var app = builder.Build();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();//authentication
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+var app = builder.Build();
+VeriDoldur.TestVerileriniDoldur(app);
+
+app.UseRouting(); //authentication
+app.UseAuthentication();//authentication
+app.UseAuthorization();//authentication
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

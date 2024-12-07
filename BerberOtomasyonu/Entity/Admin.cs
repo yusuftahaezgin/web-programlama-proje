@@ -19,7 +19,7 @@ namespace BerberOtomasyonu.Entity
         public string? AdSoyad { get; set; }
 
         [EmailAddress]
-        public string? Eposta { get; set; }
+        public string? Email { get; set; }
 
         [Phone]
         public string? Telefon { get; set; }

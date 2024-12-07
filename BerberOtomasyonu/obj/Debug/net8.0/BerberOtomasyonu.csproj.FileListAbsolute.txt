@@ -126,3 +126,4 @@ C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\refint\Berbe
 C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\BerberOtomasyonu.pdb
 C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\BerberOtomasyonu.genruntimeconfig.cache
 C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\ref\BerberOtomasyonu.dll
+C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\bin\Debug\net8.0\libman.json

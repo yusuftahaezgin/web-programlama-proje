@@ -17,13 +17,12 @@ namespace BerberOtomasyonu.Entity
 
         public Berber Berber { get; set; }=null!; // bir randevu bir berbere ait olabilir
         
-        public List<Hizmet> Hizmetler { get; set; }=new List<Hizmet>();// bir randevuda birden fazla hizmet olabilir
+        public ICollection<Hizmet> Hizmetler { get; set; }= new List<Hizmet>();// bir randevuda birden fazla hizmet olabilir
 
         [Required]
         public DateTime RandevuTarihi { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Durum { get; set; }=null!; 
+        public bool Durum { get; set; }
     }
 }

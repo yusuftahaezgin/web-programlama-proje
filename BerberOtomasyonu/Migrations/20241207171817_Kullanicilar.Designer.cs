@@ -3,6 +3,7 @@ using System;
 using BerberOtomasyonu.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerberOtomasyonu.Migrations
 {
     [DbContext(typeof(Veriler))]
-    partial class VerilerModelSnapshot : ModelSnapshot
+    [Migration("20241207171817_Kullanicilar")]
+    partial class Kullanicilar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -29,12 +32,11 @@ namespace BerberOtomasyonu.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("KullaniciAdi")
                         .IsRequired()
-                        .HasMaxLength(20)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Sifre")
@@ -57,10 +59,10 @@ namespace BerberOtomasyonu.Migrations
 
                     b.Property<string>("AdSoyad")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("CalismaSaatleri")
+                    b.Property<string>("CalismaSaatleri")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -70,8 +72,6 @@ namespace BerberOtomasyonu.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UzmanlikAlani")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("BerberID");
@@ -114,7 +114,7 @@ namespace BerberOtomasyonu.Migrations
 
                     b.Property<string>("AdSoyad")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -149,8 +149,10 @@ namespace BerberOtomasyonu.Migrations
                     b.Property<int>("BerberID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Durum")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Durum")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("MusteriID")
                         .HasColumnType("INTEGER");

@@ -8,7 +8,7 @@ namespace BerberOtomasyonu.Entity
         public int BerberID { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string AdSoyad { get; set; }=null!;
 
         [Phone]
@@ -16,9 +16,10 @@ namespace BerberOtomasyonu.Entity
 
         [EmailAddress]
         public string? Email { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string UzmanlikAlani { get; set; }=null!;
 
-        public string? UzmanlikAlani { get; set; }
-
-        public string? CalismaSaatleri { get; set; }
+        public TimeSpan CalismaSaatleri { get; set; }
     }
 }

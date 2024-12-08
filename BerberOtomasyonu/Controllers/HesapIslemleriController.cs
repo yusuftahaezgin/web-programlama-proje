@@ -29,15 +29,17 @@ namespace BerberOtomasyonu.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if(ModelState.IsValid)  
+            if(ModelState.IsValid)
             {
                 var kullanici = await _veri.Musteriler.FirstOrDefaultAsync(x => x.Email == model.Email && x.Sifre == model.Sifre);
+
+                var admin = await _veri.Adminler.FirstOrDefaultAsync(x => x.Email == model.Email && x.Sifre == model.Sifre);
 
                 if(kullanici != null)
                 {
@@ -47,16 +49,36 @@ namespace BerberOtomasyonu.Controllers
                     kullaniciBilgileri.Add(new Claim(ClaimTypes.Name, kullanici.KullaniciAdi ?? ""));
                     kullaniciBilgileri.Add(new Claim(ClaimTypes.GivenName, kullanici.AdSoyad ?? ""));
 
-                    if(kullanici.Email == "g221210008@sakarya.edu.tr")
-                    {
-                        kullaniciBilgileri.Add(new Claim(ClaimTypes.Role, "admin"));
-                    }
-                    else
-                    {
-                        kullaniciBilgileri.Add(new Claim(ClaimTypes.Role, "user"));
-                    }
+                    kullaniciBilgileri.Add(new Claim(ClaimTypes.Role, "user"));
+
 
                     var claimsIdentity = new ClaimsIdentity(kullaniciBilgileri, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var authProperties = new AuthenticationProperties 
+                    {
+                        IsPersistent = true
+                    };
+
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity), 
+                        authProperties);
+
+                    return RedirectToAction("Index","Home");
+                }
+                else if(admin != null)
+                {
+                    var adminBilgileri = new List<Claim>();
+
+                    adminBilgileri.Add(new Claim(ClaimTypes.NameIdentifier, admin.AdminID.ToString()));
+                    adminBilgileri.Add(new Claim(ClaimTypes.Name, admin.KullaniciAdi ?? ""));
+                    adminBilgileri.Add(new Claim(ClaimTypes.GivenName, admin.AdSoyad ?? ""));
+
+                    adminBilgileri.Add(new Claim(ClaimTypes.Role, "admin"));
+
+                    var claimsIdentity = new ClaimsIdentity(adminBilgileri, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     var authProperties = new AuthenticationProperties 
                     {

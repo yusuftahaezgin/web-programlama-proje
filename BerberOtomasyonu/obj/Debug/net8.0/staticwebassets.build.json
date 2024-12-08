@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xVtYT5RREBIOFInvUidiy+icV4JHudaE4wLrl9sQY4w=",
+  "Hash": "DyhVhyydOwH3K2rgo3j37WHUcupcfGY6Jn6CrIW+9Nk=",
   "Source": "BerberOtomasyonu",
   "BasePath": "_content/BerberOtomasyonu",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\web-prog-odev\\BerberOtomasyonu\\wwwroot\\images\\1.jpg",
+      "SourceId": "BerberOtomasyonu",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\web-prog-odev\\BerberOtomasyonu\\wwwroot\\",
+      "BasePath": "_content/BerberOtomasyonu",
+      "RelativePath": "images/1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\1.jpg"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\web-prog-odev\\BerberOtomasyonu\\wwwroot\\lib\\bootstrap-icons\\bootstrap-icons.svg",

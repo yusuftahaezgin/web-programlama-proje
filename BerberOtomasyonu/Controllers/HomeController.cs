@@ -9,17 +9,12 @@ namespace BerberOtomasyonu.Controllers;
 public class HomeController : Controller
 {
 
-    public IActionResult Index()
+    public IActionResult Index() // ana sayfa
     {
         var bilgiler = User.Claims;
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-  
     [Authorize(Roles = "admin")]
     public IActionResult AdminPanel() // sadece adminin erisecegi panel 
     {
@@ -37,5 +32,7 @@ public class HomeController : Controller
     {
         return RedirectToAction("Index","Home");
     }
+
+    
 
 }

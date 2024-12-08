@@ -1,0 +1,38 @@
+@model Musteri
+@{
+    Layout = "_Layout2";
+}
+<h2>Kaydol</h2>
+<hr>
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="Musteri" asp-action="Create" method="post">
+        <input type="hidden" asp-for="MusteriID">
+
+        <div class="mb-3">
+            <label asp-for="KullaniciAdi" class="form-label">Kullanıcı Adı</label>
+            <input asp-for="KullaniciAdi" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Sifre" class="form-label">Şifre</label>
+            <input asp-for="Sifre" class="form-control">
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="AdSoyad" class="form-label">Ad-Soyad</label>
+            <input asp-for="AdSoyad" class="form-control">
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Eposta</label>
+            <input asp-for="Email" class="form-control">
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="Telefon" class="form-label">Telefon</label>
+            <input asp-for="Telefon" class="form-control">
+        </div>
+    
+        <button type="submit" class="btn btn-secondary">Kaydet</button>
+    </form>
+

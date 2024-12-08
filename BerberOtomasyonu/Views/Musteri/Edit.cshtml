@@ -1,0 +1,41 @@
+@model Musteri
+
+<h2>Bilgilerini Güncelle</h2>
+<hr>
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="Musteri" asp-action="Edit" method="post">
+        <input type="hidden" asp-for="MusteriID">
+
+        <div class="mb-3">
+            <label asp-for="KullaniciAdi" class="form-label">Kullanıcı Adı</label>
+            <input asp-for="KullaniciAdi" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Sifre" class="form-label">Şifre</label>
+            <input asp-for="Sifre" class="form-control">
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="AdSoyad" class="form-label">Ad-Soyad</label>
+            <input asp-for="AdSoyad" class="form-control">
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Eposta</label>
+            <input asp-for="Email" class="form-control">
+        </div>
+    
+        <div class="mb-3">
+            <label asp-for="Telefon" class="form-label">Telefon</label>
+            <input asp-for="Telefon" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="KayitTarihi" class="form-label">Kayıt Tarihi</label>
+            <input asp-for="KayitTarihi" class="form-control">
+        </div>
+    
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a asp-controller="Musteri" asp-action="Delete" asp-route-id="@Model.MusteriID" class="btn btn-danger">Hesabı Sil</a>
+    </form>
+

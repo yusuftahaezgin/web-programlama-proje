@@ -1,0 +1,13 @@
+@model Musteri
+@{
+    Layout = "_Layout2";
+}
+<p>
+    <b>@Model.AdSoyad</b> hesabınızı gerçekten silmek istiyor musunuz?
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" name="id" value="@Model.MusteriID">
+        <button type="submit" class="btn btn-danger">Evet</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Hayır</a>
+    </form>
+</p>

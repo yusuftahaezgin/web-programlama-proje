@@ -19,7 +19,15 @@ public class AdminController : Controller
         public IActionResult Index() 
         {
             var hizmetler = _veri.Hizmetler.ToList(); 
-            return View(hizmetler);
+            var berberler = _veri.Berberler.ToList();
+
+            var viewModel = new AdminIndexView
+            {
+                Hizmetler = hizmetler,
+                Berberler = berberler
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -31,7 +39,7 @@ public class AdminController : Controller
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> HizmetOlustur(Hizmet model){ //musteri ekleme
+        public async Task<IActionResult> HizmetOlustur(Hizmet model){ 
             _veri.Hizmetler.Add(model);
             await _veri.SaveChangesAsync();
             return RedirectToAction("Index","Admin");
@@ -57,7 +65,7 @@ public class AdminController : Controller
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> HizmetDuzenle(int id, Hizmet model){ // ogrenci guncelleme
+        public async Task<IActionResult> HizmetDuzenle(int id, Hizmet model){ 
             if(id!=model.HizmetID){ // route daki id ile modelden gelen id yi karsilastirdik
                 return NotFound();
             }
@@ -108,6 +116,96 @@ public class AdminController : Controller
                 return NotFound();
             }
             _veri.Hizmetler.Remove(hizmet);
+            await _veri.SaveChangesAsync();
+            return RedirectToAction("Index","Admin");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult BerberEkle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> BerberEkle(Berber model){
+            _veri.Berberler.Add(model);
+            await _veri.SaveChangesAsync();
+            return RedirectToAction("Index","Admin");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> BerberDuzenle(int? id){
+            if(id==null){
+                return NotFound();
+            }
+
+           var berber = await _veri.Berberler.FindAsync(id); //bu fonk ile sadece id ye gore arama yapabiliriz
+            
+            if(berber==null){
+                return NotFound();
+            }
+
+            return View(berber);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BerberDuzenle(int id, Berber model){ // ogrenci guncelleme
+            if(id!=model.BerberID){ // route daki id ile modelden gelen id yi karsilastirdik
+                return NotFound();
+            }
+
+           if(ModelState.IsValid){
+            try
+            {
+                _veri.Update(model);
+                await _veri.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if(!_veri.Berberler.Any(o=>o.BerberID == model.BerberID)){
+                    return NotFound();
+                }
+                else{
+                    throw;
+                }
+            }
+            return RedirectToAction("Index","Admin");
+           }
+           return View(model);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> BerberSil(int? id){
+            if(id==null){
+                return NotFound();
+            }
+
+           var berber = await _veri.Berberler.FindAsync(id); 
+
+            if(berber==null){
+                return NotFound();
+            }
+
+            return View(berber);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> BerberSil([FromForm]int id){ //formdaki id ile karsilastirdik
+           var berber = await _veri.Berberler.FindAsync(id); 
+            if(berber==null){
+                return NotFound();
+            }
+            _veri.Berberler.Remove(berber);
             await _veri.SaveChangesAsync();
             return RedirectToAction("Index","Admin");
         }

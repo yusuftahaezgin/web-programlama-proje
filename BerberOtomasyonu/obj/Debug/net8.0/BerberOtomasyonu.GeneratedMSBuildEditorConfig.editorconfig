@@ -18,6 +18,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/HP/Desktop/web-prog-odev/BerberOtomasyonu/Views/Admin/BerberDuzenle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmVyYmVyRHV6ZW5sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/web-prog-odev/BerberOtomasyonu/Views/Admin/BerberEkle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmVyYmVyRWtsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/web-prog-odev/BerberOtomasyonu/Views/Admin/BerberSil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmVyYmVyU2lsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/Desktop/web-prog-odev/BerberOtomasyonu/Views/Admin/HizmetDuzenle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSGl6bWV0RHV6ZW5sZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

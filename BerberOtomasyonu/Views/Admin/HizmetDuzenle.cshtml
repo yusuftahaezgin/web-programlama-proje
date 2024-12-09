@@ -2,13 +2,12 @@
 @{
     Layout = "_Layout2";
 }
-<h2>Hizmet Düzenle</h2>
+<h2>Hizmet Ekle</h2>
 <hr>
 <div class="row">
     <div class="col-8">
         <form asp-controller="Admin" asp-action="HizmetDuzenle" method="post">
         <input type="hidden" asp-for="HizmetID">
-
         <div class="mb-3">
             <label asp-for="HizmetAdi" class="form-label">Hizmet Adı</label>
             <input asp-for="HizmetAdi" class="form-control">

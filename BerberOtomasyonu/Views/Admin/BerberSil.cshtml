@@ -1,0 +1,13 @@
+@model Berber
+@{
+    Layout = "_Layout2";
+}
+<p>
+    <b>@Model.AdSoyad</b> isimli berberi gerçekten silmek istiyor musunuz?
+
+    <form asp-action="BerberSil" method="post">
+        <input type="hidden" name="id" value="@Model.BerberID">
+        <button type="submit" class="btn btn-danger">Evet</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Hayır</a>
+    </form>
+</p>

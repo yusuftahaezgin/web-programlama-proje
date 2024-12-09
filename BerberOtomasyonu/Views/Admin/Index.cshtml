@@ -1,32 +1,67 @@
-@model IEnumerable<Hizmet>
-    @{
-        Layout = "_Layout2";
-    }
-    <h2>Hizmet Listesi</h2>
-    <a asp-controller="Admin" asp-action="HizmetOlustur" class="btn btn-sm btn-primary">Hizmet Ekle</a>
-    <hr>
-    <table class="table table-bordered">
-        <thead>
+@model BerberOtomasyonu.Models.AdminIndexView
+
+
+<h3>Hizmet Listesi</h3>
+<a asp-controller="Admin" asp-action="HizmetOlustur" class="btn btn-sm btn-primary">Hizmet Ekle</a>
+<hr>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Hizmet ID</th>
+            <th>Hizmet Adı</th>
+            <th>Açıklama</th>
+            <th>Fiyat</th>
+            <th style="width: 150px;">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hizmet in Model.Hizmetler)
+        {
             <tr>
-                <th style="width: 150px;">@Html.DisplayNameFor(m=>m.HizmetID)</th>
-                <th>@Html.DisplayNameFor(m=>m.HizmetAdi)</th>
-                <th>@Html.DisplayNameFor(m=>m.Aciklama)</th>
-                <th>@Html.DisplayNameFor(m=>m.Fiyat)</th>
-                <th style="width: 150px;"></th>
+                <td>@hizmet.HizmetID</td>
+                <td>@hizmet.HizmetAdi</td>
+                <td>@hizmet.Aciklama</td>
+                <td>@hizmet.Fiyat</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="HizmetDuzenle" asp-route-id="@hizmet.HizmetID" class="btn btn-primary btn-sm">Düzenle</a>
+                    <a asp-controller="Admin" asp-action="HizmetSil" asp-route-id="@hizmet.HizmetID" class="btn btn-sm btn-danger">Sil</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in Model){
-                <tr>
-                    <td>@Html.DisplayFor(modelItem =>item.HizmetID)</td>
-                    <td>@Html.DisplayFor(modelItem =>item.HizmetAdi)</td>
-                    <td>@Html.DisplayFor(modelItem =>item.Aciklama)</td>
-                    <td>@Html.DisplayFor(modelItem =>item.Fiyat)</td>
-                    <td>
-                        <a asp-controller="Admin" asp-action="HizmetDuzenle" asp-route-id="@item.HizmetID" class="btn btn-primary btn-sm">Edit</a>
-                        <a asp-controller="Admin" asp-action="HizmetSil" asp-route-id="@item.HizmetID" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
+
+<h3>Berber Listesi</h3>
+<a asp-controller="Admin" asp-action="BerberEkle" class="btn btn-sm btn-primary">Berber Ekle</a>
+<hr>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Berber ID</th>
+            <th>Ad-Soyad</th>
+            <th>Telefon</th>
+            <th>Email</th>
+            <th style="width: 150px;">Uzmanlık Alanı</th>
+            <th>Çalışma Saatleri</th>
+            <th style="width: 150px;">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var berber in Model.Berberler)
+        {
+            <tr>
+                <td>@berber.BerberID</td>
+                <td>@berber.AdSoyad</td>
+                <td>@berber.Telefon</td>
+                <td>@berber.Email</td>
+                <td>@berber.UzmanlikAlani</td>
+                <td>@berber.CalismaSaatleri</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="BerberDuzenle" asp-route-id="@berber.BerberID" class="btn btn-primary btn-sm">Düzenle</a>
+                    <a asp-controller="Admin" asp-action="BerberSil" asp-route-id="@berber.BerberID" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

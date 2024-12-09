@@ -1,0 +1,34 @@
+@model Berber
+@{
+    Layout = "_Layout2";
+}
+<h2>Bilgileri Düzenle</h2>
+<hr>
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="Admin" asp-action="BerberEkle" method="post">
+        <input type="hidden" asp-for="BerberID">
+
+        <div class="mb-3">
+            <label asp-for="AdSoyad" class="form-label">Berber Ad-Soyad</label>
+            <input asp-for="AdSoyad" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Telefon" class="form-label">Telefon</label>
+            <input asp-for="Telefon" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="UzmanlikAlani" class="form-label">Uzmanlık Alanı</label>
+            <input asp-for="UzmanlikAlani" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="CalismaSaatleri" class="form-label">Calışma Saatleri</label>
+            <input asp-for="CalismaSaatleri" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-secondary">Kaydet</button>
+    </form>

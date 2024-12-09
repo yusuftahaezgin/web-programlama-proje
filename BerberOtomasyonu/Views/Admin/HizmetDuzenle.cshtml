@@ -1,0 +1,26 @@
+@model Hizmet
+@{
+    Layout = "_Layout2";
+}
+<h2>Hizmet Düzenle</h2>
+<hr>
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="Admin" asp-action="HizmetDuzenle" method="post">
+        <input type="hidden" asp-for="HizmetID">
+
+        <div class="mb-3">
+            <label asp-for="HizmetAdi" class="form-label">Hizmet Adı</label>
+            <input asp-for="HizmetAdi" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Aciklama" class="form-label">Şifre</label>
+            <textarea asp-for="Aciklama" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Fiyat" class="form-label">Fiyat</label>
+            <input asp-for="Fiyat" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-secondary">Kaydet</button>
+    </form>

@@ -1,0 +1,32 @@
+@model IEnumerable<Hizmet>
+    @{
+        Layout = "_Layout2";
+    }
+    <h2>Hizmet Listesi</h2>
+    <a asp-controller="Admin" asp-action="HizmetOlustur" class="btn btn-sm btn-primary">Hizmet Ekle</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 150px;">@Html.DisplayNameFor(m=>m.HizmetID)</th>
+                <th>@Html.DisplayNameFor(m=>m.HizmetAdi)</th>
+                <th>@Html.DisplayNameFor(m=>m.Aciklama)</th>
+                <th>@Html.DisplayNameFor(m=>m.Fiyat)</th>
+                <th style="width: 150px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model){
+                <tr>
+                    <td>@Html.DisplayFor(modelItem =>item.HizmetID)</td>
+                    <td>@Html.DisplayFor(modelItem =>item.HizmetAdi)</td>
+                    <td>@Html.DisplayFor(modelItem =>item.Aciklama)</td>
+                    <td>@Html.DisplayFor(modelItem =>item.Fiyat)</td>
+                    <td>
+                        <a asp-controller="Admin" asp-action="HizmetDuzenle" asp-route-id="@item.HizmetID" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-controller="Admin" asp-action="HizmetSil" asp-route-id="@item.HizmetID" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

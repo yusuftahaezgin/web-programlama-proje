@@ -22,11 +22,13 @@
             <input asp-for="Email" class="form-control">
         </div>
         <div class="mb-3">
-            <label asp-for="UzmanlikAlani" class="form-label">Uzmanlık Alanı</label>
-            <input asp-for="UzmanlikAlani" class="form-control">
+            <label asp-for="HizmetID" class="form-label">Hizmetler</label>
+            <select asp-for="HizmetID" asp-items="ViewBag.Hizmetler" class="form-select">
+                <option value="">Seçiniz</option>
+            </select>
         </div>
         <div class="mb-3">
-            <label asp-for="CalismaSaatleri" class="form-label">Calışma Saatleri</label>
+            <label asp-for="CalismaSaatleri" class="form-label">Çalışma Saatleri</label>
             <input asp-for="CalismaSaatleri" class="form-control">
         </div>
         

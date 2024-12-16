@@ -9,17 +9,17 @@ namespace BerberOtomasyonu.Entity
 
         [Required]
         [MaxLength(50)]
-        public string AdSoyad { get; set; }=null!;
+        public string? AdSoyad { get; set; }
 
         [Phone]
         public string? Telefon { get; set; }
 
         [EmailAddress]
         public string? Email { get; set; }
-        [Required]
-        [MaxLength(50)]
-        public string UzmanlikAlani { get; set; }=null!;
 
-        public TimeSpan CalismaSaatleri { get; set; }
+        [Required]
+        public DateTime CalismaSaatleri { get; set; }
+        public int HizmetID { get; set; }
+        public Hizmet? Hizmet { get; set; }//bir berber bir hizmet verebilir
     }
 }

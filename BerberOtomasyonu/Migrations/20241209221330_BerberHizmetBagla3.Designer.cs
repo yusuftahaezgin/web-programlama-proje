@@ -3,6 +3,7 @@ using System;
 using BerberOtomasyonu.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerberOtomasyonu.Migrations
 {
     [DbContext(typeof(Veriler))]
-    partial class VerilerModelSnapshot : ModelSnapshot
+    [Migration("20241209221330_BerberHizmetBagla3")]
+    partial class BerberHizmetBagla3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -61,6 +64,7 @@ namespace BerberOtomasyonu.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CalismaSaatleri")
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

@@ -15,15 +15,17 @@
         </div>
         <div class="mb-3">
             <label asp-for="Telefon" class="form-label">Telefon</label>
-            <textarea asp-for="Telefon" class="form-control"></textarea>
+            <input asp-for="Telefon" class="form-control">
         </div>
         <div class="mb-3">
             <label asp-for="Email" class="form-label">Email</label>
             <input asp-for="Email" class="form-control">
         </div>
         <div class="mb-3">
-            <label asp-for="UzmanlikAlani" class="form-label">Uzmanlık Alanı</label>
-            <input asp-for="UzmanlikAlani" class="form-control">
+            <label asp-for="HizmetID" class="form-label">Hizmetler</label>
+            <select asp-for="HizmetID" asp-items="ViewBag.Hizmetler" class="form-select">
+                <option value="">Seçiniz</option>
+            </select>
         </div>
         <div class="mb-3">
             <label asp-for="CalismaSaatleri" class="form-label">Calışma Saatleri</label>

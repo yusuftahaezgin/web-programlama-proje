@@ -4,6 +4,7 @@ using BerberOtomasyonu.Models;
 using BerberOtomasyonu.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BerberOtomasyonu.Controllers;
 
@@ -26,7 +27,7 @@ public class AdminController : Controller
                 Hizmetler = hizmetler,
                 Berberler = berberler
             };
-
+            
             return View(viewModel);
         }
 
@@ -122,8 +123,9 @@ public class AdminController : Controller
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IActionResult BerberEkle()
+        public async Task<IActionResult> BerberEkle()
         {
+            ViewBag.Hizmetler=new SelectList(await _veri.Hizmetler.ToListAsync(),"HizmetID","HizmetAdi");
             return View();
         }
 
@@ -147,7 +149,7 @@ public class AdminController : Controller
             if(berber==null){
                 return NotFound();
             }
-
+            ViewBag.Hizmetler=new SelectList(await _veri.Hizmetler.ToListAsync(),"HizmetID","HizmetAdi");
             return View(berber);
         }
 
@@ -155,7 +157,7 @@ public class AdminController : Controller
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BerberDuzenle(int id, Berber model){ // ogrenci guncelleme
+        public async Task<IActionResult> BerberDuzenle(int id, Berber model){ 
             if(id!=model.BerberID){ // route daki id ile modelden gelen id yi karsilastirdik
                 return NotFound();
             }
@@ -177,6 +179,7 @@ public class AdminController : Controller
             }
             return RedirectToAction("Index","Admin");
            }
+           ViewBag.Hizmetler=new SelectList(await _veri.Hizmetler.ToListAsync(),"HizmetID","HizmetAdi");
            return View(model);
         }
 

@@ -27,9 +27,9 @@ var app = builder.Build();
 VeriDoldur.TestVerileriniDoldur(app);
 
 
-app.UseRouting(); //authentication
-app.UseAuthentication();//authentication
-app.UseAuthorization();//authentication
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.UseHttpsRedirection();

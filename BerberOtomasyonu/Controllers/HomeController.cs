@@ -27,6 +27,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Hizmetler() 
+    {
+        return View();
+    }
+
     [AllowAnonymous]
     public IActionResult ErisimHatasi(string? returnUrl)
     {

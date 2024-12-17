@@ -41,7 +41,7 @@ namespace BerberOtomasyonu.Controllers
 
                 var admin = await _veri.Adminler.FirstOrDefaultAsync(x => x.Email == model.Email && x.Sifre == model.Sifre);
 
-                if(kullanici != null)
+                if (kullanici != null)
                 {
                     var kullaniciBilgileri = new List<Claim>();
 

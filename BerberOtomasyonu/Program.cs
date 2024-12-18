@@ -1,5 +1,7 @@
 using BerberOtomasyonu.Entity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,10 +23,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Home/ErisimHatasi"; // kullanici rolu eksikse yonlenecegi sayfa
     });
 
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 VeriDoldur.TestVerileriniDoldur(app);
+
 
 
 app.UseRouting();

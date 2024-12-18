@@ -15,10 +15,10 @@ namespace BerberOtomasyonu.Entity
         [Required]
         public int BerberID { get; set; }
 
-        public Berber Berber { get; set; }=null!; // bir randevu bir berbere ait olabilir
+        public Berber Berber { get; set; }=null!;// bir randevu bir berbere ait olabilir
+        public int HizmetID { get; set; }
+        public Hizmet Hizmet { get; set; }=null!;
         
-        public ICollection<Hizmet> Hizmetler { get; set; }= new List<Hizmet>();// bir randevuda birden fazla hizmet olabilir
-
         [Required]
         public DateTime RandevuTarihi { get; set; }
 

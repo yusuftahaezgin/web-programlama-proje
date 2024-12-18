@@ -56,7 +56,7 @@ namespace BerberOtomasyonu.Controllers
 
                     var authProperties = new AuthenticationProperties 
                     {
-                        IsPersistent = true
+                        IsPersistent = false,
                     };
 
                     await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -82,7 +82,7 @@ namespace BerberOtomasyonu.Controllers
 
                     var authProperties = new AuthenticationProperties 
                     {
-                        IsPersistent = true
+                        IsPersistent = false,
                     };
 
                     await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

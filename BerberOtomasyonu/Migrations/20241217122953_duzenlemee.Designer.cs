@@ -3,6 +3,7 @@ using System;
 using BerberOtomasyonu.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerberOtomasyonu.Migrations
 {
     [DbContext(typeof(Veriler))]
-    partial class VerilerModelSnapshot : ModelSnapshot
+    [Migration("20241217122953_duzenlemee")]
+    partial class duzenlemee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -96,7 +99,12 @@ namespace BerberOtomasyonu.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("RandevuID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("HizmetID");
+
+                    b.HasIndex("RandevuID");
 
                     b.ToTable("Hizmetler");
                 });
@@ -160,8 +168,6 @@ namespace BerberOtomasyonu.Migrations
 
                     b.HasIndex("BerberID");
 
-                    b.HasIndex("HizmetID");
-
                     b.HasIndex("MusteriID");
 
                     b.ToTable("Randevular");
@@ -178,17 +184,18 @@ namespace BerberOtomasyonu.Migrations
                     b.Navigation("Hizmet");
                 });
 
+            modelBuilder.Entity("BerberOtomasyonu.Entity.Hizmet", b =>
+                {
+                    b.HasOne("BerberOtomasyonu.Entity.Randevu", null)
+                        .WithMany("Hizmetler")
+                        .HasForeignKey("RandevuID");
+                });
+
             modelBuilder.Entity("BerberOtomasyonu.Entity.Randevu", b =>
                 {
                     b.HasOne("BerberOtomasyonu.Entity.Berber", "Berber")
                         .WithMany()
                         .HasForeignKey("BerberID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BerberOtomasyonu.Entity.Hizmet", "Hizmet")
-                        .WithMany()
-                        .HasForeignKey("HizmetID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -200,14 +207,17 @@ namespace BerberOtomasyonu.Migrations
 
                     b.Navigation("Berber");
 
-                    b.Navigation("Hizmet");
-
                     b.Navigation("Musteri");
                 });
 
             modelBuilder.Entity("BerberOtomasyonu.Entity.Hizmet", b =>
                 {
                     b.Navigation("Berberler");
+                });
+
+            modelBuilder.Entity("BerberOtomasyonu.Entity.Randevu", b =>
+                {
+                    b.Navigation("Hizmetler");
                 });
 #pragma warning restore 612, 618
         }

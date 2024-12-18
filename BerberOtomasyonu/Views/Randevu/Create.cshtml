@@ -1,0 +1,74 @@
+@model Randevu
+@{
+    Layout = "_Layout2";
+}
+<div class="container mt-5">
+    <h1 class="text-center fw-bold mb-5">Randevu Al</h1>
+    <form method="post" asp-controller="Randevu" asp-action="Create">
+        <div class="row justify-content-center">
+            <!-- Hizmet Seçimi -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="HizmetID" class="form-label">Hizmetler</label>
+                <select id="hizmetler" name="HizmetID" class="form-select">
+                    <option value="">Seçiniz</option>
+                    @foreach (var hizmet in ViewBag.Hizmetler)
+                    {
+                        <option value="@hizmet.HizmetID" data-fiyat="@hizmet.Fiyat">@hizmet.HizmetAdi</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Fiyat Gösterimi -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fiyat</label>
+                <input type="text" id="fiyat" class="form-control" readonly>
+            </div>
+
+
+            <!-- Berber Seçimi -->
+            <div class="col-md-6 mb-3">
+                <label asp-for="BerberID" class="form-label">Berberler</label>
+                <select asp-for="BerberID" asp-items="ViewBag.Berberler" class="form-select">
+                    <option value="">Seçiniz</option>
+                </select>
+            </div>
+
+            <!-- Randevu Tarihi -->
+            <div class="col-md-6 mb-3">
+                <label for="RandevuTarihi" class="form-label fw-bold">Randevu Tarihi</label>
+                <input type="datetime-local" id="RandevuTarihi" name="RandevuTarihi" class="form-control" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="BerberID" class="form-label">Berberler</label>
+                <select asp-for="BerberID" asp-items="ViewBag.Berberler" class="form-select">
+                    <option value="">Seçiniz</option>
+                </select>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <label for="RandevuTarihi" class="form-label fw-bold">Randevu Tarihi</label>
+                <input type="datetime-local" id="RandevuTarihi" name="RandevuTarihi" class="form-control" required>
+            </div>
+
+            <!-- Gönder Butonu -->
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary px-4">Randevu Oluştur</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const hizmetSelect = document.getElementById("hizmetler");
+        const fiyatInput = document.getElementById("fiyat");
+
+        hizmetSelect.addEventListener("change", function () {
+            const selectedOption = hizmetSelect.options[hizmetSelect.selectedIndex];
+            const fiyat = selectedOption.getAttribute("data-fiyat") || ""; // Fiyat bilgisi
+
+            fiyatInput.value = fiyat ? `${fiyat} ₺` : ""; // Fiyat boşsa temizle
+        });
+    });
+</script>

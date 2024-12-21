@@ -7,7 +7,7 @@ namespace BerberOtomasyonu.Controllers;
 
 public class MusteriController : Controller
 {
-    private readonly Veriler _veri;
+        private readonly Veriler _veri;
         public MusteriController(Veriler veri)
         {
             _veri=veri;

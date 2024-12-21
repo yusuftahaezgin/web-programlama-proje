@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BerberOtomasyonu")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad37d71afde4d9459fcdd1967ce7f294601f6f67")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbc21a367859979164da648a3aabf8ed1c64726a")]
 [assembly: System.Reflection.AssemblyProductAttribute("BerberOtomasyonu")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BerberOtomasyonu")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

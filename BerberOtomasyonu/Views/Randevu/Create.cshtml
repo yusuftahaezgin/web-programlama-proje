@@ -2,9 +2,11 @@
 @{
     Layout = "_Layout2";
 }
+
 <div class="container mt-5">
     <h1 class="text-center fw-bold mb-5">Randevu Al</h1>
     <form method="post" asp-controller="Randevu" asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row justify-content-center">
             <!-- Hizmet Seçimi -->
             <div class="col-md-6 mb-3">
@@ -24,7 +26,6 @@
                 <input type="text" id="fiyat" class="form-control" readonly>
             </div>
 
-
             <!-- Berber Seçimi -->
             <div class="col-md-6 mb-3">
                 <label asp-for="BerberID" class="form-label">Berberler</label>
@@ -33,25 +34,24 @@
                 </select>
             </div>
 
-            <!-- Randevu Tarihi -->
             <div class="col-md-6 mb-3">
                 <label for="RandevuTarihi" class="form-label fw-bold">Randevu Tarihi</label>
-                <input type="datetime-local" id="RandevuTarihi" name="RandevuTarihi" class="form-control" required>
+                <input type="date" id="RandevuTarihi" name="RandevuTarihi" class="form-control" required
+                       min="@DateTime.Now.ToString("yyyy-MM-dd")"
+                       max="@DateTime.Now.AddDays(7).ToString("yyyy-MM-dd")">
             </div>
-
             <div class="col-md-6 mb-3">
-                <label asp-for="BerberID" class="form-label">Berberler</label>
-                <select asp-for="BerberID" asp-items="ViewBag.Berberler" class="form-select">
+                <label asp-for="RandevuSaati" class="form-label">Randevu Saati</label>
+                <select asp-for="RandevuSaati" class="form-select">
                     <option value="">Seçiniz</option>
+                    @foreach (var saat in ViewBag.Saatler)
+                    {
+                        <option value="@saat.Saat">@saat.Saat</option>
+                    }
                 </select>
-            </div>
-            
-            <div class="col-md-6 mb-3">
-                <label for="RandevuTarihi" class="form-label fw-bold">Randevu Tarihi</label>
-                <input type="datetime-local" id="RandevuTarihi" name="RandevuTarihi" class="form-control" required>
+                <span asp-validation-for="RandevuSaati" class="text-danger"></span>
             </div>
 
-            <!-- Gönder Butonu -->
             <div class="col-md-12 text-center">
                 <button type="submit" class="btn btn-primary px-4">Randevu Oluştur</button>
             </div>
@@ -72,3 +72,7 @@
         });
     });
 </script>
+
+
+
+

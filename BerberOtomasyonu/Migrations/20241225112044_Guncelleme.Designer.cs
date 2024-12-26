@@ -11,14 +11,29 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerberOtomasyonu.Migrations
 {
     [DbContext(typeof(Veriler))]
-    [Migration("20241208103834_TablolarinGuncellenmesi")]
-    partial class TablolarinGuncellenmesi
+    [Migration("20241225112044_Guncelleme")]
+    partial class Guncelleme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+
+            modelBuilder.Entity("BerberHizmet", b =>
+                {
+                    b.Property<int>("BerberID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("HizmetID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BerberID", "HizmetID");
+
+                    b.HasIndex("HizmetID");
+
+                    b.ToTable("BerberHizmet");
+                });
 
             modelBuilder.Entity("BerberOtomasyonu.Entity.Admin", b =>
                 {
@@ -32,6 +47,7 @@ namespace BerberOtomasyonu.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("KullaniciAdi")
@@ -62,18 +78,19 @@ namespace BerberOtomasyonu.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CalismaSaatleri")
+                    b.Property<TimeSpan>("CalismaBaslangic")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("CalismaBitis")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Telefon")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("HizmetID")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("UzmanlikAlani")
-                        .IsRequired()
-                        .HasMaxLength(50)
+                    b.Property<string>("Telefon")
                         .HasColumnType("TEXT");
 
                     b.HasKey("BerberID");
@@ -90,6 +107,9 @@ namespace BerberOtomasyonu.Migrations
                     b.Property<string>("Aciklama")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("BerberID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Fiyat")
                         .HasColumnType("decimal(18,2)");
 
@@ -98,12 +118,7 @@ namespace BerberOtomasyonu.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("RandevuID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("HizmetID");
-
-                    b.HasIndex("RandevuID");
 
                     b.ToTable("Hizmetler");
                 });
@@ -154,6 +169,9 @@ namespace BerberOtomasyonu.Migrations
                     b.Property<bool>("Durum")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("HizmetID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("MusteriID")
                         .HasColumnType("INTEGER");
 
@@ -164,16 +182,26 @@ namespace BerberOtomasyonu.Migrations
 
                     b.HasIndex("BerberID");
 
+                    b.HasIndex("HizmetID");
+
                     b.HasIndex("MusteriID");
 
                     b.ToTable("Randevular");
                 });
 
-            modelBuilder.Entity("BerberOtomasyonu.Entity.Hizmet", b =>
+            modelBuilder.Entity("BerberHizmet", b =>
                 {
-                    b.HasOne("BerberOtomasyonu.Entity.Randevu", null)
-                        .WithMany("Hizmetler")
-                        .HasForeignKey("RandevuID");
+                    b.HasOne("BerberOtomasyonu.Entity.Berber", null)
+                        .WithMany()
+                        .HasForeignKey("BerberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BerberOtomasyonu.Entity.Hizmet", null)
+                        .WithMany()
+                        .HasForeignKey("HizmetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BerberOtomasyonu.Entity.Randevu", b =>
@@ -181,6 +209,12 @@ namespace BerberOtomasyonu.Migrations
                     b.HasOne("BerberOtomasyonu.Entity.Berber", "Berber")
                         .WithMany()
                         .HasForeignKey("BerberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BerberOtomasyonu.Entity.Hizmet", "Hizmet")
+                        .WithMany()
+                        .HasForeignKey("HizmetID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -192,12 +226,9 @@ namespace BerberOtomasyonu.Migrations
 
                     b.Navigation("Berber");
 
-                    b.Navigation("Musteri");
-                });
+                    b.Navigation("Hizmet");
 
-            modelBuilder.Entity("BerberOtomasyonu.Entity.Randevu", b =>
-                {
-                    b.Navigation("Hizmetler");
+                    b.Navigation("Musteri");
                 });
 #pragma warning restore 612, 618
         }

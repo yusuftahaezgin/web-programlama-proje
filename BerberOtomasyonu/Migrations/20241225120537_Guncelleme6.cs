@@ -5,7 +5,7 @@
 namespace BerberOtomasyonu.Migrations
 {
     /// <inheritdoc />
-    public partial class BerberHizmetBagla : Migration
+    public partial class Guncelleme6 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

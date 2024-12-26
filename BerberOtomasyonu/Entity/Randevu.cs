@@ -10,17 +10,17 @@ namespace BerberOtomasyonu.Entity
         [Required]
         public int MusteriID { get; set; }
 
-        public Musteri Musteri { get; set; } =null!; // bir randevu bir musteriye ait olabilir
-
         [Required]
         public int BerberID { get; set; }
 
-        public Berber Berber { get; set; }=null!;// bir randevu bir berbere ait olabilir
+        [Required]
         public int HizmetID { get; set; }
-        public Hizmet Hizmet { get; set; }=null!;
         
         [Required]
         public DateTime RandevuTarihi { get; set; }
+        
+        [Required]
+        public TimeSpan RandevuSaati { get; set; }
 
         [Required]
         public bool Durum { get; set; }

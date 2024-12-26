@@ -31,6 +31,12 @@ public class AdminController : Controller
             return View(viewModel);
         }
 
+        [Authorize(Roles = "admin")]
+        public IActionResult RandevuListesi() 
+        {
+            return View();
+        }
+
         [HttpGet]
         [Authorize(Roles = "admin")]
         public IActionResult HizmetOlustur()
@@ -136,6 +142,7 @@ public class AdminController : Controller
             await _veri.SaveChangesAsync();
             return RedirectToAction("Index","Admin");
         }
+
 
         [HttpGet]
         [Authorize(Roles = "admin")]

@@ -1,0 +1,52 @@
+@model Randevu
+@{
+    Layout = "_Layout2";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center fw-bold mb-5">Randevu Detayları</h1>
+
+    <!-- Kullanıcıya mesaj göstermek için -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["Message"]
+        </div>
+    }
+
+    <div class="row">
+        <!-- Hizmet -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Hizmet</label>
+            <input type="text" class="form-control" value="@Model.Hizmet.HizmetAdi" readonly />
+        </div>
+
+        <!-- Berber -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Berber</label>
+            <input type="text" class="form-control" value="@Model.Berber.AdSoyad" readonly />
+        </div>
+
+        <!-- Randevu Tarihi -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Randevu Tarihi</label>
+            <input type="text" class="form-control" value="@Model.RandevuTarihi.ToString("dd MMM yyyy")" readonly />
+        </div>
+
+        <!-- Randevu Saati -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Randevu Saati</label>
+            <input type="text" class="form-control" value="@Model.RandevuSaati" readonly />
+        </div>
+
+        <!-- Durum -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Durum</label>
+            <input type="text" class="form-control" value="@(Model.Durum ? Onaylı : Onay Bekliyor)" readonly />
+        </div>
+    </div>
+
+    <div class="col-md-12 text-center mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary px-4">Ana Sayfaya Dön</a>
+    </div>
+</div>

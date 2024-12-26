@@ -18,9 +18,22 @@
             <a asp-controller="Home" asp-action="Hizmetler" class="navbar-brand">
                 Hizmetler
             </a>
-            <a asp-controller="Randevu" asp-action="Create" class="navbar-brand">
-                Randevu Al
-            </a>
+            @if(User.Identity!.IsAuthenticated)
+            {
+                var rol = User.FindFirstValue(ClaimTypes.Role);
+                if(rol=="admin")
+                    {
+                        <a asp-controller="Admin" asp-action="Index" class="navbar-brand">
+                            Randevu Listesi
+                        </a>
+                    }
+                    else if(rol=="user")
+                    {
+                        <a asp-controller="Randevu" asp-action="Create" class="navbar-brand">
+                            Randevu Al
+                        </a>
+                    }
+            }
             <ul class="navbar-nav ms-auto">
                 @if(User.Identity!.IsAuthenticated)
                 {

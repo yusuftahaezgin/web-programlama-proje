@@ -16,6 +16,7 @@ namespace BerberOtomasyonu.Entity
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Fiyat { get; set; }
+        public int BerberID { get; set; }
         public ICollection<Berber> Berberler { get; set; }=new List<Berber>(); //bir hizmeti birden fazla berber verebilir
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "z7ZYNUnYVE8=",
+  "dgSpecHash": "D5ThYByfj5s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP\\Desktop\\web-prog-odev\\BerberOtomasyonu\\BerberOtomasyonu.csproj",
+  "projectFilePath": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\BerberOtomasyonu.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

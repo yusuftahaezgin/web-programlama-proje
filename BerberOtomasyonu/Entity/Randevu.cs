@@ -24,5 +24,9 @@ namespace BerberOtomasyonu.Entity
 
         [Required]
         public bool Durum { get; set; }
+
+        public Berber? Berber { get; set; }
+        public Hizmet? Hizmet { get; set; }
+        public Musteri? Musteri { get; set; }
     }
-}
+    }

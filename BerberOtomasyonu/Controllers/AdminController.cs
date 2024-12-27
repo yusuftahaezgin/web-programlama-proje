@@ -31,11 +31,6 @@ public class AdminController : Controller
             return View(viewModel);
         }
 
-        [Authorize(Roles = "admin")]
-        public IActionResult RandevuListesi() 
-        {
-            return View();
-        }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
@@ -218,5 +213,40 @@ public class AdminController : Controller
             _veri.Berberler.Remove(berber);
             await _veri.SaveChangesAsync();
             return RedirectToAction("Index","Admin");
+        }
+
+
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> RandevuListesi() 
+        {
+            var randevular = await _veri.Randevular
+            .Include(r => r.Berber)  // Berber bilgilerini dahil et
+            .Include(r => r.Hizmet)  // Hizmet bilgilerini dahil et
+            .Include(r => r.Musteri) // Müşteri bilgilerini dahil et
+            .ToListAsync();
+
+        return View(randevular); // Randevular listesi view'e gönderilir
+        }
+
+        public async Task<IActionResult> Onayla(int randevuID)
+        {
+            // Randevu bilgilerini al
+            var randevu = await _veri.Randevular
+                .FirstOrDefaultAsync(r => r.RandevuID == randevuID);
+
+            if (randevu == null)
+            {
+                TempData["Message"] = "Randevu bulunamadı.";
+                return RedirectToAction("Index");
+            }
+
+            // Randevuyu onayla
+            randevu.Durum = true;
+
+            // Veritabanında değişiklikleri kaydet
+            await _veri.SaveChangesAsync();
+
+            TempData["Message"] = "Randevu onaylandı.";
+            return RedirectToAction("Index");
         }
 }

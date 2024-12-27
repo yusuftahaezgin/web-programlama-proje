@@ -127,3 +127,4 @@ C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\BerberOtomas
 C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\BerberOtomasyonu.genruntimeconfig.cache
 C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\obj\Debug\net8.0\ref\BerberOtomasyonu.dll
 C:\Users\HP\Desktop\web-prog-odev\BerberOtomasyonu\bin\Debug\net8.0\libman.json
+C:\Users\HP\Desktop\web-prog-odev\berberotomasyonu\bin\Debug\net8.0\Newtonsoft.Json.dll

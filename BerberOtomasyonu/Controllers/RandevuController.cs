@@ -1,5 +1,6 @@
 using System.Text.Json;
 using BerberOtomasyonu.Entity;
+using BerberOtomasyonu.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -82,8 +83,7 @@ namespace YourProjectNamespace.Controllers
         }
 
          // Randevu Detaylarını Görüntüleme
-        [HttpGet]
-        public async Task<IActionResult> RandevuDetay()
+       public async Task<IActionResult> RandevuDetay()
         {
             var musteriID = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
@@ -92,20 +92,33 @@ namespace YourProjectNamespace.Controllers
                 return RedirectToAction("Login", "HesapIslemleri"); // Giriş yapmamışsa login ol
             }
 
-            // Kullanıcıya ait randevuları çekiyoruz
+            // Kullanıcıya ait randevuyu çekiyoruz ve ilişkili Berber ve Hizmet verilerini dahil ediyoruz
             var randevu = await _veri.Randevular
                 .Where(r => r.MusteriID == int.Parse(musteriID))
+                .Include(r => r.Berber)  // Berber ilişkisini dahil et
+                .Include(r => r.Hizmet)  // Hizmet ilişkisini dahil et
                 .FirstOrDefaultAsync();
 
             if (randevu == null)
             {
                 // Eğer randevu bulunamazsa, uygun bir mesaj gösterilebilir
-                TempData["Message"] = "Henüz bir randevunuz bulunmamaktadır.";
+                TempData["msj"] = "Henüz bir randevunuz bulunmamaktadır.";
                 return RedirectToAction("Create", "Randevu");
             }
 
-            return View(randevu); // Randevu bilgilerini view'e göndürüyoruz
+            var randevuDetay = new RandevuDetay
+            {
+                RandevuID = randevu.RandevuID,
+                HizmetAdi = randevu.Hizmet?.HizmetAdi ?? "Hizmet bulunamadı",
+                BerberAdi = randevu.Berber?.AdSoyad ?? "Berber bulunamadı",
+                RandevuTarihi = randevu.RandevuTarihi,
+                RandevuSaati = randevu.RandevuSaati.ToString(@"hh\:mm"),
+                Durum = randevu.Durum
+            };
+
+            return View(randevuDetay); // DTO'yu view'a gönderiyoruz
         }
+
 
     }
 }

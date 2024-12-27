@@ -23,14 +23,20 @@
                 var rol = User.FindFirstValue(ClaimTypes.Role);
                 if(rol=="admin")
                     {
-                        <a asp-controller="Admin" asp-action="Index" class="navbar-brand">
+                        <a asp-controller="Admin" asp-action="RandevuListesi" class="navbar-brand">
                             Randevu Listesi
+                        </a>
+                        <a asp-controller="BerberConsumeApi" asp-action="Index" class="navbar-brand">
+                            Berber Listesi
                         </a>
                     }
                     else if(rol=="user")
                     {
                         <a asp-controller="Randevu" asp-action="Create" class="navbar-brand">
                             Randevu Al
+                        </a>
+                        <a asp-controller="Randevu" asp-action="RandevuDetay" class="navbar-brand">
+                            Randevularım
                         </a>
                     }
             }

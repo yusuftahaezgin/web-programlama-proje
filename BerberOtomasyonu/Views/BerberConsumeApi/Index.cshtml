@@ -1,0 +1,33 @@
+@model IEnumerable<BerberOtomasyonu.Entity.Berber>
+
+<h3>Berber Listesi</h3>
+    <a asp-controller="BerberConsumeApi" asp-action="Ekle" class="btn btn-sm btn-primary">Berber Ekle</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Berber ID</th>
+                <th>Ad-Soyad</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th style="width: 150px;">Uzmanlık Alanı</th>
+                <th>Mesai Başlangıç</th>
+                <th>Mesai Bitiş</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var berber in Model)
+            {
+                <tr>
+                    <td>@berber.BerberID</td>
+                    <td>@berber.AdSoyad</td>
+                    <td>@berber.Telefon</td>
+                    <td>@berber.Email</td>
+                    <td>@berber.HizmetID</td>
+                    <td>@berber.CalismaBaslangic</td>
+                    <td>@berber.CalismaBitis</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    

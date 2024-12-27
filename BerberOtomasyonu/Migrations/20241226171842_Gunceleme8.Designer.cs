@@ -3,6 +3,7 @@ using System;
 using BerberOtomasyonu.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerberOtomasyonu.Migrations
 {
     [DbContext(typeof(Veriler))]
-    partial class VerilerModelSnapshot : ModelSnapshot
+    [Migration("20241226171842_Gunceleme8")]
+    partial class Gunceleme8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -184,8 +187,6 @@ namespace BerberOtomasyonu.Migrations
 
                     b.HasIndex("HizmetID");
 
-                    b.HasIndex("MusteriID");
-
                     b.ToTable("Randevular");
                 });
 
@@ -218,17 +219,9 @@ namespace BerberOtomasyonu.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BerberOtomasyonu.Entity.Musteri", "Musteri")
-                        .WithMany()
-                        .HasForeignKey("MusteriID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Berber");
 
                     b.Navigation("Hizmet");
-
-                    b.Navigation("Musteri");
                 });
 #pragma warning restore 612, 618
         }

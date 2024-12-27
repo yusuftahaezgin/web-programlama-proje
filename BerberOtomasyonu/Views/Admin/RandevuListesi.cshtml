@@ -1,3 +1,35 @@
-@{
-    ViewData["Title"] = "RandevuListesi";
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Randevu ID</th>
+            <th>Müşteri Adı</th>
+            <th>Berber Adı</th>
+            <th>Hizmet Adı</th>
+            <th>Randevu Tarihi</th>
+            <th>Randevu Saati</th>
+            <th>Durum</th>
+            <th>Onayla</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var randevu in Model)
+        {
+            <tr>
+                <td>@randevu.RandevuID</td>
+                <td>@randevu.Musteri.AdSoyad</td>
+                <td>@randevu.Berber.AdSoyad</td> 
+                <td>@randevu.Hizmet.HizmetAdi</td> 
+                <td>@randevu.RandevuTarihi.ToString("dd/MM/yyyy")</td>
+                <td>@randevu.RandevuSaati.ToString(@"hh\:mm")</td>
+                <td>@(randevu.Durum ? "Onaylı" : "Onay Bekliyor")</td>
+                <td>
+                    @if (!randevu.Durum)
+                    {
+                        <a asp-action="Onayla" asp-controller="Admin" asp-route-randevuID="@randevu.RandevuID" class="btn btn-success">Onayla</a>
+                    }
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

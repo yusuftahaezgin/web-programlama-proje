@@ -3,6 +3,7 @@ using System;
 using BerberOtomasyonu.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerberOtomasyonu.Migrations
 {
     [DbContext(typeof(Veriler))]
-    partial class VerilerModelSnapshot : ModelSnapshot
+    [Migration("20241226172111_Guncelleme9")]
+    partial class Guncelleme9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -180,12 +183,6 @@ namespace BerberOtomasyonu.Migrations
 
                     b.HasKey("RandevuID");
 
-                    b.HasIndex("BerberID");
-
-                    b.HasIndex("HizmetID");
-
-                    b.HasIndex("MusteriID");
-
                     b.ToTable("Randevular");
                 });
 
@@ -202,33 +199,6 @@ namespace BerberOtomasyonu.Migrations
                         .HasForeignKey("HizmetlerHizmetID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BerberOtomasyonu.Entity.Randevu", b =>
-                {
-                    b.HasOne("BerberOtomasyonu.Entity.Berber", "Berber")
-                        .WithMany()
-                        .HasForeignKey("BerberID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BerberOtomasyonu.Entity.Hizmet", "Hizmet")
-                        .WithMany()
-                        .HasForeignKey("HizmetID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BerberOtomasyonu.Entity.Musteri", "Musteri")
-                        .WithMany()
-                        .HasForeignKey("MusteriID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Berber");
-
-                    b.Navigation("Hizmet");
-
-                    b.Navigation("Musteri");
                 });
 #pragma warning restore 612, 618
         }

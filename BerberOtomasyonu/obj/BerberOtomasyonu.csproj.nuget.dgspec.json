@@ -59,6 +59,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "OpenAI-DotNet": {
+              "target": "Package",
+              "version": "[8.4.1, )"
             }
           },
           "imports": [

@@ -9,8 +9,28 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\1.jpg",
-      "PackagePath": "staticwebassets\\images\\1.jpg"
+      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\about-us.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\berber.jpg",
+      "PackagePath": "staticwebassets\\images\\berber.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\maske.jpg",
+      "PackagePath": "staticwebassets\\images\\maske.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\sac_kesimi.jpg",
+      "PackagePath": "staticwebassets\\images\\sac_kesimi.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\sac_sakal_kesimi.jpg",
+      "PackagePath": "staticwebassets\\images\\sac_sakal_kesimi.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\images\\sakal_tirasi.jpg",
+      "PackagePath": "staticwebassets\\images\\sakal_tirasi.jpg"
     },
     {
       "Id": "C:\\Users\\HP\\Desktop\\web-prog-odev\\berberotomasyonu\\wwwroot\\lib\\bootstrap-icons\\bootstrap-icons.svg",

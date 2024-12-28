@@ -10,7 +10,7 @@ namespace BerberOtomasyonu.Entity
 
         [Required]
         [MaxLength(50)]
-        public string? AdSoyad { get; set; }
+        public string AdSoyad { get; set; }
 
         [Phone]
         public string? Telefon { get; set; }

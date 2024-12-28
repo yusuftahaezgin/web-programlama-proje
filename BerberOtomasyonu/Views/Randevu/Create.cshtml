@@ -18,7 +18,6 @@
     <form method="post" asp-controller="Randevu" asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row justify-content-center">
-            <!-- Hizmet Seçimi -->
             <div class="col-md-6 mb-3">
                 <label asp-for="HizmetID" class="form-label">Hizmetler</label>
                 <select id="hizmetler" name="HizmetID" class="form-select">
@@ -30,7 +29,6 @@
                 </select>
             </div>
 
-            <!-- Fiyat Gösterimi -->
             <div class="col-md-6 mb-3">
                 <label class="form-label">Fiyat</label>
                 <input type="text" id="fiyat" class="form-control" readonly>

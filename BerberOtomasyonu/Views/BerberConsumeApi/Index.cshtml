@@ -1,5 +1,7 @@
 @model IEnumerable<BerberOtomasyonu.Entity.Berber>
-
+    @{
+        Layout = "_Layout2";
+    }
 <h3>Berber Listesi</h3>
     <a asp-controller="BerberConsumeApi" asp-action="Ekle" class="btn btn-sm btn-primary">Berber Ekle</a>
     <hr>

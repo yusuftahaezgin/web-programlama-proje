@@ -1,0 +1,25 @@
+@model IEnumerable<BerberKazanc>
+    @{
+        Layout = "_Layout2";
+    }
+    <h1>Berber Toplam Kazançları</h1>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Berber ID</th>
+                <th>Ad Soyad</th>
+                <th>Toplam Kazanç</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BerberID</td>
+                    <td>@item.AdSoyad</td>
+                    <td>@item.ToplamKazanc.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>

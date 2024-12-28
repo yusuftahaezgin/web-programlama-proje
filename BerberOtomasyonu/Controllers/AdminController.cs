@@ -42,9 +42,13 @@ public class AdminController : Controller
         [HttpPost]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> HizmetOlustur(Hizmet model){ 
-            _veri.Hizmetler.Add(model);
-            await _veri.SaveChangesAsync();
-            return RedirectToAction("Index","Admin");
+            if(ModelState.IsValid)
+            {
+                 _veri.Hizmetler.Add(model);
+                await _veri.SaveChangesAsync();
+                return RedirectToAction("Index","Admin");
+            }
+            return View(model);
         }
 
         [HttpGet]
@@ -54,7 +58,7 @@ public class AdminController : Controller
                 return NotFound();
             }
 
-           var hizmet = await _veri.Hizmetler.FindAsync(id); //bu fonk ile sadece id ye gore arama yapabiliriz
+           var hizmet = await _veri.Hizmetler.FindAsync(id); 
             
             if(hizmet==null){
                 return NotFound();
@@ -68,7 +72,7 @@ public class AdminController : Controller
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> HizmetDuzenle(int id, Hizmet model){ 
-            if(id!=model.HizmetID){ // route daki id ile modelden gelen id yi karsilastirdik
+            if(id!=model.HizmetID){ 
                 return NotFound();
             }
 
@@ -112,7 +116,7 @@ public class AdminController : Controller
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> HizmetSil([FromForm]int id){ //formdaki id ile karsilastirdik
+        public async Task<IActionResult> HizmetSil([FromForm]int id){ 
            var hizmet = await _veri.Hizmetler.FindAsync(id); 
             if(hizmet==null){
                 return NotFound();
@@ -133,9 +137,13 @@ public class AdminController : Controller
         [HttpPost]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> BerberEkle(Berber model){
-            _veri.Berberler.Add(model);
-            await _veri.SaveChangesAsync();
-            return RedirectToAction("Index","Admin");
+            if(ModelState.IsValid)
+            {
+                _veri.Berberler.Add(model);
+                await _veri.SaveChangesAsync();
+                return RedirectToAction("Index","Admin");
+            }
+            return View(model);
         }
 
 
@@ -146,7 +154,7 @@ public class AdminController : Controller
                 return NotFound();
             }
 
-           var berber = await _veri.Berberler.FindAsync(id); //bu fonk ile sadece id ye gore arama yapabiliriz
+           var berber = await _veri.Berberler.FindAsync(id); 
             
             if(berber==null){
                 return NotFound();
@@ -160,7 +168,7 @@ public class AdminController : Controller
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BerberDuzenle(int id, Berber model){ 
-            if(id!=model.BerberID){ // route daki id ile modelden gelen id yi karsilastirdik
+            if(id!=model.BerberID){ 
                 return NotFound();
             }
 
@@ -205,7 +213,7 @@ public class AdminController : Controller
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> BerberSil([FromForm]int id){ //formdaki id ile karsilastirdik
+        public async Task<IActionResult> BerberSil([FromForm]int id){ 
            var berber = await _veri.Berberler.FindAsync(id); 
             if(berber==null){
                 return NotFound();
@@ -220,12 +228,12 @@ public class AdminController : Controller
         public async Task<IActionResult> RandevuListesi() 
         {
             var randevular = await _veri.Randevular
-            .Include(r => r.Berber)  // Berber bilgilerini dahil et
-            .Include(r => r.Hizmet)  // Hizmet bilgilerini dahil et
-            .Include(r => r.Musteri) // Müşteri bilgilerini dahil et
+            .Include(r => r.Berber) 
+            .Include(r => r.Hizmet)  
+            .Include(r => r.Musteri)
             .ToListAsync();
 
-        return View(randevular); // Randevular listesi view'e gönderilir
+            return View(randevular);
         }
 
         public async Task<IActionResult> Onayla(int randevuID)
@@ -236,17 +244,33 @@ public class AdminController : Controller
 
             if (randevu == null)
             {
-                TempData["Message"] = "Randevu bulunamadı.";
+                TempData["msj"] = "Randevu bulunamadı.";
                 return RedirectToAction("Index");
             }
 
             // Randevuyu onayla
             randevu.Durum = true;
 
-            // Veritabanında değişiklikleri kaydet
             await _veri.SaveChangesAsync();
 
-            TempData["Message"] = "Randevu onaylandı.";
-            return RedirectToAction("Index");
+            TempData["msj"] = "Randevu onaylandı.";
+            return RedirectToAction("RandevuListesi");
+        }
+
+
+        public IActionResult BerberKazanclar()
+        {
+            var kazancRaporu = _veri.Randevular
+                .Where(r => r.Durum) // Sadece onaylanmış randevular
+                .GroupBy(r => r.BerberID) // ÇalışanID'ye göre gruplama
+                .Select(grup => new BerberKazanc
+                {
+                    BerberID = grup.Key,
+                    AdSoyad = _veri.Berberler.FirstOrDefault(c => c.BerberID == grup.Key).AdSoyad,
+                    ToplamKazanc = grup.Sum(r => _veri.Hizmetler.FirstOrDefault(i => i.HizmetID == r.HizmetID).Fiyat)
+                })
+                .ToList();
+
+            return View(kazancRaporu);
         }
 }

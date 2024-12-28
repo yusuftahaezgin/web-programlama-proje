@@ -18,6 +18,9 @@
             <a asp-controller="Home" asp-action="Hizmetler" class="navbar-brand">
                 Hizmetler
             </a>
+            <a asp-controller="ModelOneri" asp-action="ResimYukle" class="navbar-brand">
+                Model AI
+            </a>
             @if(User.Identity!.IsAuthenticated)
             {
                 var rol = User.FindFirstValue(ClaimTypes.Role);
@@ -28,6 +31,9 @@
                         </a>
                         <a asp-controller="BerberConsumeApi" asp-action="Index" class="navbar-brand">
                             Berber Listesi
+                        </a>
+                        <a asp-controller="Admin" asp-action="BerberKazanclar" class="navbar-brand">
+                            Berber Kazanç Listesi
                         </a>
                     }
                     else if(rol=="user")

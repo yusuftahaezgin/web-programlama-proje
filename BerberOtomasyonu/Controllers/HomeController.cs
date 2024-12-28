@@ -11,18 +11,6 @@ public class HomeController : Controller
         return View();
     }
 
-    [Authorize(Roles = "admin")]
-    public IActionResult AdminPanel() // sadece adminin erisecegi panel 
-    {
-        return View();
-    }
-
-    [Authorize(Roles = "user")]
-    public IActionResult UserPanel() // sadece user erisecegi panel 
-    {
-        return View();
-    }
-
     public IActionResult Hizmetler() 
     {
         return View();

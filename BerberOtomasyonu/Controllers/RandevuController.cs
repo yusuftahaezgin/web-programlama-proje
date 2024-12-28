@@ -1,6 +1,7 @@
 using System.Text.Json;
 using BerberOtomasyonu.Entity;
 using BerberOtomasyonu.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,16 +17,16 @@ namespace YourProjectNamespace.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="user")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Hizmetler = await _veri.Hizmetler
             .Select(h => new { h.HizmetID, h.HizmetAdi, h.Fiyat })
             .ToListAsync();
 
-
             ViewBag.Berberler = new SelectList(await _veri.Berberler.ToListAsync(), "BerberID", "AdSoyad");
 
-            ViewBag.Saatler = Enumerable.Range(9, 9) // 9'dan başla ve 9 saat ekle (09:00 - 17:00)
+            ViewBag.Saatler = Enumerable.Range(9, 9)  // 9 - 17
             .Select(i => new { Saat = $"{i:00}:00" })
             .ToList();
             
@@ -33,14 +34,12 @@ namespace YourProjectNamespace.Controllers
         }
 
         [HttpPost]
+         [Authorize(Roles ="user")]
         public async Task<IActionResult> Create(Randevu model)
         {
-           
             var musteriID= User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
             if (!ModelState.IsValid)
             {
-                // Eğer hata varsa, formu tekrar doldurması için kullanıcıya geri dön
                 ViewBag.Hizmetler = await _veri.Hizmetler
                     .Select(h => new { h.HizmetID, h.HizmetAdi, h.Fiyat })
                     .ToListAsync();
@@ -53,7 +52,7 @@ namespace YourProjectNamespace.Controllers
                 return View(model);
             }
 
-            // Randevu saati çakışmasını kontrol et
+
             var mevcutRandevular = await _veri.Randevular
             .Where(r => r.BerberID == model.BerberID 
                     && r.RandevuTarihi.Date == model.RandevuTarihi.Date
@@ -74,7 +73,7 @@ namespace YourProjectNamespace.Controllers
                 return View(model);
             }
 
-            model.Durum = false; // Başlangıçta onay bekleyen randevu
+            model.Durum = false;
             model.MusteriID=int.Parse(musteriID);
             _veri.Randevular.Add(model);
             await _veri.SaveChangesAsync();
@@ -82,41 +81,41 @@ namespace YourProjectNamespace.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-         // Randevu Detaylarını Görüntüleme
+         [Authorize(Roles ="user")]
        public async Task<IActionResult> RandevuDetay()
         {
             var musteriID = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(musteriID))
             {
-                return RedirectToAction("Login", "HesapIslemleri"); // Giriş yapmamışsa login ol
+                return RedirectToAction("Login", "HesapIslemleri"); 
             }
 
-            // Kullanıcıya ait randevuyu çekiyoruz ve ilişkili Berber ve Hizmet verilerini dahil ediyoruz
-            var randevu = await _veri.Randevular
+            var randevular = await _veri.Randevular
                 .Where(r => r.MusteriID == int.Parse(musteriID))
-                .Include(r => r.Berber)  // Berber ilişkisini dahil et
-                .Include(r => r.Hizmet)  // Hizmet ilişkisini dahil et
-                .FirstOrDefaultAsync();
+                .Include(r => r.Berber)  
+                .Include(r => r.Hizmet) 
+                .ToListAsync();
 
-            if (randevu == null)
+            if (!randevular.Any())
             {
-                // Eğer randevu bulunamazsa, uygun bir mesaj gösterilebilir
+                
                 TempData["msj"] = "Henüz bir randevunuz bulunmamaktadır.";
                 return RedirectToAction("Create", "Randevu");
             }
 
-            var randevuDetay = new RandevuDetay
+           
+            var randevuDetaylar = randevular.Select(r => new RandevuDetay
             {
-                RandevuID = randevu.RandevuID,
-                HizmetAdi = randevu.Hizmet?.HizmetAdi ?? "Hizmet bulunamadı",
-                BerberAdi = randevu.Berber?.AdSoyad ?? "Berber bulunamadı",
-                RandevuTarihi = randevu.RandevuTarihi,
-                RandevuSaati = randevu.RandevuSaati.ToString(@"hh\:mm"),
-                Durum = randevu.Durum
-            };
+                RandevuID = r.RandevuID,
+                HizmetAdi = r.Hizmet?.HizmetAdi ?? "Hizmet bulunamadı",
+                BerberAdi = r.Berber?.AdSoyad ?? "Berber bulunamadı",
+                RandevuTarihi = r.RandevuTarihi,
+                RandevuSaati = r.RandevuSaati.ToString(@"hh\:mm"),
+                Durum = r.Durum
+            }).ToList();
 
-            return View(randevuDetay); // DTO'yu view'a gönderiyoruz
+            return View(randevuDetaylar);
         }
 
 

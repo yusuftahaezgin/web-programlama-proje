@@ -20,7 +20,7 @@ public class MusteriController : Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Musteri model){ //musteri ekleme
+        public async Task<IActionResult> Create(Musteri model){ 
             _veri.Musteriler.Add(model);
             await _veri.SaveChangesAsync();
             return RedirectToAction("Login","HesapIslemleri");
@@ -32,7 +32,7 @@ public class MusteriController : Controller
                 return NotFound();
             }
 
-           var musteri = await _veri.Musteriler.FindAsync(id); //bu fonk ile sadece id ye gore arama yapabiliriz
+           var musteri = await _veri.Musteriler.FindAsync(id); 
             
             if(musteri==null){
                 return NotFound();
@@ -44,8 +44,8 @@ public class MusteriController : Controller
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Musteri model){ // ogrenci guncelleme
-            if(id!=model.MusteriID){ // route daki id ile modelden gelen id yi karsilastirdik
+        public async Task<IActionResult> Edit(int id, Musteri model){
+            if(id!=model.MusteriID){ 
                 return NotFound();
             }
 
@@ -87,7 +87,7 @@ public class MusteriController : Controller
 
 
         [HttpPost]
-        public async Task<IActionResult> Delete([FromForm]int id){ //formdaki id ile karsilastirdik
+        public async Task<IActionResult> Delete([FromForm]int id){ 
            var musteri = await _veri.Musteriler.FindAsync(id); 
             if(musteri==null){
                 return NotFound();
